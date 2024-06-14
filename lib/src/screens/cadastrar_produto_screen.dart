@@ -10,7 +10,29 @@ class CadastrarProdutoScreen extends HookConsumerWidget {
       appBar: AppBar(
         title: const Text(''),
       ),
-      body: Column(),
+      body: ListView(children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Produtos',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Text(
+                    '',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )
+      ]),
     );
   }
 }
