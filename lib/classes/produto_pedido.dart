@@ -1,0 +1,22 @@
+import 'package:front_end/classes/produto.dart';
+
+class ProdutoPedido {
+  final Produto? produto;
+  final int? quantidade;
+
+  ProdutoPedido({this.produto, this.quantidade});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'produto': produto,
+      'quantidade': quantidade,
+    };
+  }
+
+  factory ProdutoPedido.fromJson(Map<String, dynamic> json) {
+    return ProdutoPedido(
+      produto: json['produto'] as Produto?,
+      quantidade: json['quantidade'] as int?,
+    );
+  }
+}

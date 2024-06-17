@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/routes.dart';
 import 'package:front_end/theme.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
