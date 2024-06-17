@@ -14,7 +14,7 @@ class Produto {
   Map<String, dynamic> toJson() {
     return {
       'nome': nome,
-      'dimensoes': dimensoes,
+      'dimensoes': dimensoes?.toJson(),
       'tratamentoTermico': tratamentoTermico,
     };
   }
@@ -22,7 +22,9 @@ class Produto {
   factory Produto.fromJson(Map<String, dynamic> json) {
     return Produto(
       nome: json['nome'] as String?,
-      dimensoes: json['dimensoes'] as Dimensoes?,
+      dimensoes: json['dimensoes'] != null
+          ? Dimensoes.fromJson(json['dimensoes'])
+          : null,
       tratamentoTermico: json['tratamentoTermico'] as bool?,
     );
   }

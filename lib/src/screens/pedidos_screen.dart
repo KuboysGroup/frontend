@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:front_end/providers/pedido_provider.dart';
+import 'package:front_end/classes/pedido.dart';
+import 'package:front_end/network/requests/pedidos_request.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final pedidosListProvider =
+    FutureProvider.autoDispose<List<Pedido>>((ref) async {
+  return await PedidosRequest.getItem();
+});
 
 class PedidosScreen extends HookConsumerWidget {
   const PedidosScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pedidos = ref.watch(pedidosProvider);
-    final pedidosNotifier = ref.read(pedidosProvider.notifier);
+    final pedidosList = ref.watch(pedidosListProvider);
+    // final pedidosNotifier = ref.read(pedidosProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -25,23 +31,19 @@ class PedidosScreen extends HookConsumerWidget {
                   'Pedidos',
                   style: TextStyle(fontSize: 25),
                 ),
-                if (pedidos.isEmpty)
-                  const Text(
-                    'Nenhum pedido encontrado.',
-                    style: TextStyle(color: Colors.grey),
-                  )
-                else
-                  ...pedidos.map((pedido) => ListTile(
-                        title: Text('Pedido ${pedido.id}'),
-                        subtitle: Text('Status: ${pedido.status}'),
-                      )),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () async {
-                    await pedidosNotifier.getPedidos();
-                  },
-                  child: const Text("Carregar Pedidos"),
+                const Text(
+                  'Gerencie seus pedidos',
+                  style: TextStyle(color: Colors.grey),
                 ),
+                pedidosList.when(
+                    data: (data) {
+                      return Column(
+                        children: [...data.map((e) => Text(e.id.toString()))],
+                      );
+                    },
+                    error: (error, stacktrace) =>
+                        Text('Erro ao carregar contas a pagar: $error'),
+                    loading: () => const Text('carregando...'))
               ],
             ),
           ),

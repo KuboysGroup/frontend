@@ -8,14 +8,15 @@ class ProdutoPedido {
 
   Map<String, dynamic> toJson() {
     return {
-      'produto': produto,
+      'produto': produto?.toJson(),
       'quantidade': quantidade,
     };
   }
 
   factory ProdutoPedido.fromJson(Map<String, dynamic> json) {
     return ProdutoPedido(
-      produto: json['produto'] as Produto?,
+      produto:
+          json['produto'] != null ? Produto.fromJson(json['produto']) : null,
       quantidade: json['quantidade'] as int?,
     );
   }
