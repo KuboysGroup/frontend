@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:front_end/classes/pedido.dart';
-import 'package:front_end/network/requests/pedidos_request.dart';
 import 'package:front_end/src/helpers/status_manager.dart';
 import 'package:front_end/state/pedido_selecionado_state.dart';
+import 'package:front_end/state/pedidos_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-
-final pedidosListProvider =
-    FutureProvider.autoDispose<List<Pedido>>((ref) async {
-  return await PedidosRequest.getItem();
-});
 
 class PedidosScreen extends HookConsumerWidget {
   const PedidosScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pedidosList = ref.watch(pedidosListProvider);
+    final pedidosList = ref.watch(pedidosStateProvider);
+
     ref.watch(pedidoSelecionadoStateProvider);
 
     Widget buildSubtitle(
@@ -66,69 +61,71 @@ class PedidosScreen extends HookConsumerWidget {
       ),
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Pedidos',
-                  style: TextStyle(fontSize: 25),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Pedidos',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                    Text(
+                      'Gerencie seus pedidos',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
                 ),
-                const Text(
-                  'Gerencie seus pedidos',
-                  style: TextStyle(color: Colors.grey),
-                ),
-                pedidosList.when(
-                    data: (data) {
-                      return Column(
-                        children: [
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          ...data.map((e) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                child: ListTile(
-                                  leading: CircularStepProgressIndicator(
-                                    totalSteps: 3,
-                                    currentStep:
-                                        StatusManager.getStep(e.status),
-                                    stepSize: 10,
-                                    selectedColor:
-                                        StatusManager.getColor(e.status),
-                                    unselectedColor: Colors.grey[200],
-                                    padding: 0,
-                                    width: 70,
-                                    height: 70,
-                                    unselectedStepSize: 5,
-                                    selectedStepSize: 5,
-                                    child: Center(
-                                      child: StatusManager.getDescr(e.status),
-                                    ),
+              ),
+              pedidosList.when(
+                  data: (data) {
+                    return Column(
+                      children: [
+                        const SizedBox(
+                          height: 8.0,
+                        ),
+                        ...data.map((e) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: ListTile(
+                                leading: CircularStepProgressIndicator(
+                                  totalSteps: 3,
+                                  currentStep: StatusManager.getStep(e.status),
+                                  stepSize: 10,
+                                  selectedColor:
+                                      StatusManager.getColor(e.status),
+                                  unselectedColor: Colors.grey[200],
+                                  padding: 0,
+                                  width: 70,
+                                  height: 70,
+                                  unselectedStepSize: 5,
+                                  selectedStepSize: 5,
+                                  child: Center(
+                                    child: StatusManager.getDescr(e.status),
                                   ),
-                                  visualDensity:
-                                      const VisualDensity(vertical: 4),
-                                  onTap: () {
-                                    ref
-                                        .read(pedidoSelecionadoStateProvider
-                                            .notifier)
-                                        .selecionarPedido(e);
-                                    context.go('/pedidos/pedido_selecionado');
-                                  },
-                                  title: Text('ID Pedido: ${e.id}'),
-                                  subtitle: buildSubtitle(
-                                      e.dataPedido, e.dataEntrega, e.status),
                                 ),
-                              ))
-                        ],
-                      );
-                    },
-                    error: (error, stacktrace) =>
-                        Text('Erro ao carregar pedidos: $error'),
-                    loading: () => const Center(child: Text('carregando...')))
-              ],
-            ),
+                                visualDensity: const VisualDensity(vertical: 4),
+                                onTap: () {
+                                  ref
+                                      .read(pedidoSelecionadoStateProvider
+                                          .notifier)
+                                      .selecionarPedido(e);
+                                  context.go('/pedidos/pedido_selecionado');
+                                },
+                                title: Text('ID Pedido: ${e.id}'),
+                                subtitle: buildSubtitle(
+                                    e.dataPedido, e.dataEntrega, e.status),
+                              ),
+                            ))
+                      ],
+                    );
+                  },
+                  error: (error, stacktrace) =>
+                      Text('Erro ao carregar pedidos: $error'),
+                  loading: () => const Center(child: Text('carregando...')))
+            ],
           ),
         ],
       ),

@@ -6,7 +6,7 @@ class StatusManager {
       case "EM_ABERTO":
         return const Color.fromARGB(255, 255, 119, 7);
       case "EM_PRODUCAO":
-        return const Color.fromARGB(255, 218, 255, 7);
+        return const Color.fromARGB(255, 155, 196, 60);
       case "FINALIZADO":
         return const Color.fromARGB(255, 89, 131, 94);
       case "CANCELADO":

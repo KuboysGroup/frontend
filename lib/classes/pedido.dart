@@ -15,6 +15,22 @@ class Pedido {
     this.status,
   });
 
+  Pedido copyWith({
+    int? id,
+    List<ProdutoPedido>? produtos,
+    String? dataEntrega,
+    String? dataPedido,
+    String? status,
+  }) {
+    return Pedido(
+      id: id ?? this.id,
+      produtos: produtos ?? this.produtos,
+      dataEntrega: dataEntrega ?? this.dataEntrega,
+      dataPedido: dataPedido ?? this.dataPedido,
+      status: status ?? this.status,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

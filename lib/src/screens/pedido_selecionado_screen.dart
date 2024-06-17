@@ -1,6 +1,10 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:front_end/classes/pedido.dart';
+import 'package:front_end/network/requests/alterar_status_request.dart';
 import 'package:front_end/src/helpers/status_manager.dart';
 import 'package:front_end/state/pedido_selecionado_state.dart';
+import 'package:front_end/state/pedidos_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -10,6 +14,16 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pedido = ref.watch(pedidoSelecionadoStateProvider);
+    ref.watch(pedidosStateProvider);
+    const List<String> list = <String>[
+      'EM_ABERTO',
+      'EM_PRODUCAO',
+      'FINALIZADO',
+      'CANCELADO'
+    ];
+
+    final dropdownValue = ref.watch(dropdownProvider);
+    final dropdownNotifier = ref.read(dropdownProvider.notifier);
 
     Widget buildRow(String title, String value) {
       return Padding(
@@ -26,6 +40,22 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
           ],
         ),
       );
+    }
+
+    void atualizarState(Pedido pedido) async {
+      final updatedPedido = Pedido(
+        id: pedido.id,
+        produtos: pedido.produtos,
+        dataEntrega: pedido.dataEntrega,
+        dataPedido: pedido.dataPedido,
+        status: dropdownValue,
+      );
+      ref
+          .read(pedidoSelecionadoStateProvider.notifier)
+          .atualizarStatusPedido(dropdownValue);
+      ref.read(pedidosStateProvider.notifier).atualizarPedidos(updatedPedido);
+      await AtualizarStatusPedidoRequest.atualizarStatusPedido(
+          pedido.id, pedido);
     }
 
     return Scaffold(
@@ -56,8 +86,18 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
                     padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Divider(),
                   ),
-                  const Text('LISTA DE PRODUTOS: '),
+                  const Text('Lista de produtos: '),
                   ...pedido.produtos!.map((produtoPedido) => ListTile(
+                        leading: Container(
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.25),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          child:
+                              const Icon(FluentIcons.tray_item_add_20_regular),
+                        ),
                         title: Text(produtoPedido.produto!.nome.toString()),
                         subtitle: Text(
                             'Quantidade: ${produtoPedido.quantidade.toString()}'),
@@ -69,7 +109,7 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('STATUS: '),
+                      const Text('Status: '),
                       Text(pedido.status.toString()),
                     ],
                   ),
@@ -83,6 +123,38 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
                         selectedColor: StatusManager.getColor(pedido.status),
                         unselectedColor: Colors.grey),
                   ),
+                  const Text('Alterar status:'),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DropdownButton<String>(
+                            value: dropdownValue,
+                            elevation: 1,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black87),
+                            items: list
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (String? value) {
+                              if (value != null) {
+                                dropdownNotifier.updateValue(value);
+                              }
+                            }),
+                        ElevatedButton(
+                            onPressed: () {
+                              atualizarState(pedido);
+                            },
+                            child: const Text('Confirmar'))
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -92,3 +164,16 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
     );
   }
 }
+
+class DropdownStateNotifier extends StateNotifier<String> {
+  DropdownStateNotifier() : super('EM_ABERTO');
+
+  void updateValue(String newValue) {
+    state = newValue;
+  }
+}
+
+final dropdownProvider =
+    StateNotifierProvider<DropdownStateNotifier, String>((ref) {
+  return DropdownStateNotifier();
+});

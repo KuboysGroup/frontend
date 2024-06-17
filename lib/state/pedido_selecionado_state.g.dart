@@ -7,7 +7,7 @@ part of 'pedido_selecionado_state.dart';
 // **************************************************************************
 
 String _$pedidoSelecionadoStateHash() =>
-    r'5d157c0aa5d5b6355c3ad86a9c99c7a167456670';
+    r'875c43f3a215e3ccd15823ca0c5c9cc1d5e40a2c';
 
 /// See also [PedidoSelecionadoState].
 @ProviderFor(PedidoSelecionadoState)

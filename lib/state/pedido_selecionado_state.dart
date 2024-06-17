@@ -13,4 +13,10 @@ class PedidoSelecionadoState extends _$PedidoSelecionadoState {
   void selecionarPedido(Pedido pedido) {
     state = pedido;
   }
+
+  void atualizarStatusPedido(String status) {
+    if (state != null) {
+      state = state!.copyWith(status: status);
+    }
+  }
 }
