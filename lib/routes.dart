@@ -1,4 +1,5 @@
 import 'package:front_end/src/screens/cadastrar_produto_screen.dart';
+import 'package:front_end/src/screens/detalhes_produto_screen.dart';
 import 'package:front_end/src/screens/home_screen.dart';
 import 'package:front_end/src/screens/pedido_selecionado_screen.dart';
 import 'package:front_end/src/screens/pedidos_screen.dart';
@@ -21,10 +22,16 @@ class Routes {
                 builder: (context, state) => const PedidosScreen(),
                 routes: [
                   GoRoute(
-                    path: 'pedido_selecionado',
-                    builder: (context, state) =>
-                        const PedidoSelecionadoScreen(),
-                  )
+                      path: 'pedido_selecionado',
+                      builder: (context, state) =>
+                          const PedidoSelecionadoScreen(),
+                      routes: [
+                        GoRoute(
+                          path: 'detalhes_produto',
+                          builder: (context, state) =>
+                              const DetalhesProdutoScreen(),
+                        )
+                      ])
                 ]),
           ],
         ),

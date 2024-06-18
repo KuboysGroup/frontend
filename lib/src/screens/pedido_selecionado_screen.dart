@@ -5,6 +5,8 @@ import 'package:front_end/network/requests/alterar_status_request.dart';
 import 'package:front_end/src/helpers/status_manager.dart';
 import 'package:front_end/state/pedido_selecionado_state.dart';
 import 'package:front_end/state/pedidos_state.dart';
+import 'package:front_end/state/produto_selecionado_state.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -24,6 +26,7 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
 
     final dropdownValue = ref.watch(dropdownProvider);
     final dropdownNotifier = ref.read(dropdownProvider.notifier);
+    ref.watch(produtoSelecionadoStateProvider);
 
     Widget buildRow(String title, String value) {
       return Padding(
@@ -54,8 +57,9 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
           .read(pedidoSelecionadoStateProvider.notifier)
           .atualizarStatusPedido(dropdownValue);
       ref.read(pedidosStateProvider.notifier).atualizarPedidos(updatedPedido);
+      print(updatedPedido.produtos?.first.toJson());
       await AtualizarStatusPedidoRequest.atualizarStatusPedido(
-          pedido.id, pedido);
+          updatedPedido.id, updatedPedido);
     }
 
     return Scaffold(
@@ -101,6 +105,13 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
                         title: Text(produtoPedido.produto!.nome.toString()),
                         subtitle: Text(
                             'Quantidade: ${produtoPedido.quantidade.toString()}'),
+                        onTap: () {
+                          ref
+                              .read(produtoSelecionadoStateProvider.notifier)
+                              .selecionarProduto(produtoPedido.produto!);
+                          context.go(
+                              '/pedidos/pedido_selecionado/detalhes_produto');
+                        },
                       )),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.0),
