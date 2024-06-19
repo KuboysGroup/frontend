@@ -1,16 +1,16 @@
-import 'package:front_end/classes/pedido.dart';
+import 'package:front_end/classes/pedido_moldes.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'pedido_selecionado_state.g.dart';
+part 'pedido_molde_selecionado_state.g.dart';
 
 @riverpod
-class PedidoSelecionadoState extends _$PedidoSelecionadoState {
+class PedidoMoldeSelecionadoState extends _$PedidoMoldeSelecionadoState {
   @override
-  Pedido? build() {
+  PedidoMoldes? build() {
     return null;
   }
 
-  void selecionarPedido(Pedido pedido) {
+  void selecionarPedido(PedidoMoldes pedido) {
     state = pedido;
   }
 

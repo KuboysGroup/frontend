@@ -1,21 +1,21 @@
-import 'package:front_end/classes/pedido.dart';
+import 'package:front_end/classes/pedido_ferramentas.dart';
 import 'package:front_end/network/requests/pedidos_request.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'pedidos_state.g.dart';
+part 'pedidos_ferramentas_state.g.dart';
 
 @riverpod
-class PedidosState extends _$PedidosState {
+class PedidosFerramentasState extends _$PedidosFerramentasState {
   @override
-  Future<List<Pedido>> build() async {
-    return await PedidosRequest.getItem();
+  Future<List<PedidoFerramentas>> build() async {
+    return await PedidosRequest.getPedidosFerramentas();
   }
 
-  void atualizarLista(List<Pedido> listaPedidos) {
+  void atualizarLista(List<PedidoFerramentas> listaPedidos) {
     state = AsyncValue.data(listaPedidos);
   }
 
-  void atualizarPedidos(Pedido item) {
+  void atualizarPedidos(PedidoFerramentas item) {
     state.whenData((pedidos) {
       final updatedPedidos = pedidos.map((element) {
         if (element.id == item.id) {

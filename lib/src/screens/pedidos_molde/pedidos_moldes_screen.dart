@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/src/helpers/status_manager.dart';
-import 'package:front_end/state/pedido_selecionado_state.dart';
-import 'package:front_end/state/pedidos_state.dart';
+import 'package:front_end/state/pedidos_molde_states/pedido_molde_selecionado_state.dart';
+import 'package:front_end/state/pedidos_molde_states/pedidos_moldes_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class PedidosScreen extends HookConsumerWidget {
-  const PedidosScreen({super.key});
+class PedidosMoldesScreen extends HookConsumerWidget {
+  const PedidosMoldesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pedidosList = ref.watch(pedidosStateProvider);
+    final pedidosList = ref.watch(pedidosMoldesStateProvider);
 
-    ref.watch(pedidoSelecionadoStateProvider);
+    ref.watch(pedidoMoldeSelecionadoStateProvider);
 
     Widget buildSubtitle(
         String? dataPedido, String? dataEntrega, String? status) {
@@ -70,7 +70,7 @@ class PedidosScreen extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Pedidos',
+                      'Pedidos de Moldes',
                       style: TextStyle(fontSize: 25),
                     ),
                     Text(
@@ -109,10 +109,11 @@ class PedidosScreen extends HookConsumerWidget {
                                 visualDensity: const VisualDensity(vertical: 4),
                                 onTap: () {
                                   ref
-                                      .read(pedidoSelecionadoStateProvider
+                                      .read(pedidoMoldeSelecionadoStateProvider
                                           .notifier)
                                       .selecionarPedido(e);
-                                  context.go('/pedidos/pedido_selecionado');
+                                  context.go(
+                                      '/pedidos_moldes/pedido_molde_selecionado');
                                 },
                                 title: Text('ID Pedido: ${e.id}'),
                                 subtitle: buildSubtitle(

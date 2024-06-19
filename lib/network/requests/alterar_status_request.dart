@@ -1,12 +1,13 @@
 import 'dart:convert';
-import 'package:front_end/classes/pedido.dart';
+import 'package:front_end/classes/pedido_moldes.dart';
 import 'package:http/http.dart' as http;
 
 class AtualizarStatusPedidoRequest {
-  static Future<void> atualizarStatusPedido(int? id, Pedido pedido) async {
+  static Future<void> atualizarStatusPedido(
+      int? id, PedidoMoldes pedido) async {
     try {
       final response = await http.put(
-        Uri.parse('http://192.168.4.14:8080/pedidos/$id'),
+        Uri.parse('http://192.168.4.14:8080/pedidos/molde/$id'),
         headers: {
           'Content-Type': 'application/json',
         },

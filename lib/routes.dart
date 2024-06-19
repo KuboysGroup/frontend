@@ -1,8 +1,9 @@
-import 'package:front_end/src/screens/cadastrar_produto_screen.dart';
-import 'package:front_end/src/screens/detalhes_produto_screen.dart';
+import 'package:front_end/src/screens/cadastrar_produto/cadastrar_produto_screen.dart';
+import 'package:front_end/src/screens/pedidos_molde/detalhes_molde_screen.dart';
 import 'package:front_end/src/screens/home_screen.dart';
-import 'package:front_end/src/screens/pedido_selecionado_screen.dart';
-import 'package:front_end/src/screens/pedidos_screen.dart';
+import 'package:front_end/src/screens/pedidos_molde/pedido_molde_selecionado_screen.dart';
+import 'package:front_end/src/screens/pedidos_ferramenta/pedidos_ferramentas_screen.dart';
+import 'package:front_end/src/screens/pedidos_molde/pedidos_moldes_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -18,21 +19,38 @@ class Routes {
               builder: (context, state) => const CadastrarProdutoScreen(),
             ),
             GoRoute(
-                path: 'pedidos',
-                builder: (context, state) => const PedidosScreen(),
+                path: 'pedidos_moldes',
+                builder: (context, state) => const PedidosMoldesScreen(),
                 routes: [
                   GoRoute(
-                      path: 'pedido_selecionado',
+                      path: 'pedido_molde_selecionado',
                       builder: (context, state) =>
-                          const PedidoSelecionadoScreen(),
+                          const PedidoMoldeSelecionadoScreen(),
                       routes: [
                         GoRoute(
-                          path: 'detalhes_produto',
+                          path: 'detalhes_molde',
                           builder: (context, state) =>
-                              const DetalhesProdutoScreen(),
+                              const DetalhesMoldeScreen(),
                         )
                       ])
                 ]),
+            GoRoute(
+              path: 'pedidos_ferramentas',
+              builder: (context, state) => const PedidosFerramentasScreen(),
+              // routes: [
+              //   GoRoute(
+              //       path: 'pedido_molde_selecionado',
+              //       builder: (context, state) =>
+              //           const PedidoMoldeSelecionadoScreen(),
+              //       routes: [
+              //         GoRoute(
+              //           path: 'detalhes_molde',
+              //           builder: (context, state) =>
+              //               const DetalhesMoldeScreen(),
+              //         )
+              //       ])
+              // ]
+            ),
           ],
         ),
       ],

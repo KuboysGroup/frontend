@@ -76,10 +76,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Icon(FluentIcons.production_20_regular),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                  title: const Text('Pedidos'),
+                  title: const Text('Pedidos de Moldes'),
                   subtitle: const Text('Gerencie e atualize seus pedidos'),
                   onTap: () {
-                    context.go('/pedidos');
+                    context.go('/pedidos_moldes');
+                  },
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                child: ListTile(
+                  leading: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.25),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    child: const Icon(FluentIcons.production_20_regular),
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                  title: const Text('Pedidos de Ferramentas'),
+                  subtitle: const Text('Gerencie e atualize seus pedidos'),
+                  onTap: () {
+                    context.go('/pedidos_ferramentas');
                   },
                 ),
               )

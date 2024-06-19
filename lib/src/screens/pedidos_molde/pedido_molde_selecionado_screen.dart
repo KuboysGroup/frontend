@@ -1,22 +1,22 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:front_end/classes/pedido.dart';
+import 'package:front_end/classes/pedido_moldes.dart';
 import 'package:front_end/network/requests/alterar_status_request.dart';
 import 'package:front_end/src/helpers/status_manager.dart';
-import 'package:front_end/state/pedido_selecionado_state.dart';
-import 'package:front_end/state/pedidos_state.dart';
-import 'package:front_end/state/produto_selecionado_state.dart';
+import 'package:front_end/state/pedidos_molde_states/molde_selecionado_state.dart';
+import 'package:front_end/state/pedidos_molde_states/pedido_molde_selecionado_state.dart';
+import 'package:front_end/state/pedidos_molde_states/pedidos_moldes_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class PedidoSelecionadoScreen extends HookConsumerWidget {
-  const PedidoSelecionadoScreen({super.key});
+class PedidoMoldeSelecionadoScreen extends HookConsumerWidget {
+  const PedidoMoldeSelecionadoScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pedido = ref.watch(pedidoSelecionadoStateProvider);
-    ref.watch(pedidosStateProvider);
+    final pedido = ref.watch(pedidoMoldeSelecionadoStateProvider);
+    ref.watch(pedidosMoldesStateProvider);
     const List<String> list = <String>[
       'EM_ABERTO',
       'EM_PRODUCAO',
@@ -26,7 +26,7 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
 
     final dropdownValue = ref.watch(dropdownProvider);
     final dropdownNotifier = ref.read(dropdownProvider.notifier);
-    ref.watch(produtoSelecionadoStateProvider);
+    ref.watch(moldeSelecionadoStateProvider);
 
     Widget buildRow(String title, String value) {
       return Padding(
@@ -45,18 +45,19 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
       );
     }
 
-    void atualizarState(Pedido pedido) async {
-      final updatedPedido = Pedido(
-        id: pedido.id,
-        produtos: pedido.produtos,
-        dataEntrega: pedido.dataEntrega,
-        dataPedido: pedido.dataPedido,
-        status: dropdownValue,
-      );
+    void atualizarState(PedidoMoldes pedido) async {
+      final updatedPedido = PedidoMoldes(
+          id: pedido.id,
+          dataEntrega: pedido.dataEntrega,
+          dataPedido: pedido.dataPedido,
+          status: dropdownValue,
+          produtos: pedido.produtos);
       ref
-          .read(pedidoSelecionadoStateProvider.notifier)
+          .read(pedidoMoldeSelecionadoStateProvider.notifier)
           .atualizarStatusPedido(dropdownValue);
-      ref.read(pedidosStateProvider.notifier).atualizarPedidos(updatedPedido);
+      ref
+          .read(pedidosMoldesStateProvider.notifier)
+          .atualizarPedidos(updatedPedido);
       print(updatedPedido.produtos?.first.toJson());
       await AtualizarStatusPedidoRequest.atualizarStatusPedido(
           updatedPedido.id, updatedPedido);
@@ -102,15 +103,15 @@ class PedidoSelecionadoScreen extends HookConsumerWidget {
                           child:
                               const Icon(FluentIcons.tray_item_add_20_regular),
                         ),
-                        title: Text(produtoPedido.produto!.nome.toString()),
+                        title: Text(produtoPedido.nome.toString()),
                         subtitle: Text(
                             'Quantidade: ${produtoPedido.quantidade.toString()}'),
                         onTap: () {
                           ref
-                              .read(produtoSelecionadoStateProvider.notifier)
-                              .selecionarProduto(produtoPedido.produto!);
+                              .read(moldeSelecionadoStateProvider.notifier)
+                              .selecionarProduto(produtoPedido);
                           context.go(
-                              '/pedidos/pedido_selecionado/detalhes_produto');
+                              '/pedidos_moldes/pedido_molde_selecionado/detalhes_molde');
                         },
                       )),
                   const Padding(

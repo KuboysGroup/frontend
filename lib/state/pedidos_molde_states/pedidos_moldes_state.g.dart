@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'produto_selecionado_state.dart';
+part of 'pedidos_moldes_state.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$produtoSelecionadoStateHash() =>
-    r'd1780324b83b7bfd603749f48fe80fbba1c44519';
+String _$pedidosMoldesStateHash() =>
+    r'3c6380193e5e2541edc1d471e4cc69b6d9a6ba55';
 
-/// See also [ProdutoSelecionadoState].
-@ProviderFor(ProdutoSelecionadoState)
-final produtoSelecionadoStateProvider =
-    AutoDisposeNotifierProvider<ProdutoSelecionadoState, Produto?>.internal(
-  ProdutoSelecionadoState.new,
-  name: r'produtoSelecionadoStateProvider',
+/// See also [PedidosMoldesState].
+@ProviderFor(PedidosMoldesState)
+final pedidosMoldesStateProvider = AutoDisposeAsyncNotifierProvider<
+    PedidosMoldesState, List<PedidoMoldes>>.internal(
+  PedidosMoldesState.new,
+  name: r'pedidosMoldesStateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$produtoSelecionadoStateHash,
+      : _$pedidosMoldesStateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ProdutoSelecionadoState = AutoDisposeNotifier<Produto?>;
+typedef _$PedidosMoldesState = AutoDisposeAsyncNotifier<List<PedidoMoldes>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
