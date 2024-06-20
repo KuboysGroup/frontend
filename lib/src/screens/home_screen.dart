@@ -115,13 +115,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.grey.withOpacity(0.25),
                       borderRadius: BorderRadius.circular(50.0),
                     ),
-                    child: const Icon(FluentIcons.new_16_regular),
+                    child: const Icon(FluentIcons.feed_16_regular),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                  title: const Text('Produtos'),
-                  subtitle: const Text('Cadastre e atualize produtos'),
+                  title: const Text('Materiais'),
+                  subtitle: const Text('Consulte e atualize os materiais'),
                   onTap: () {
-                    context.go('/cadastrar_produto');
+                    context.go('/materiais');
                   },
                 ),
               ),

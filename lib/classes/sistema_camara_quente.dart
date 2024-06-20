@@ -3,7 +3,7 @@ import 'package:front_end/classes/material.dart';
 import 'package:front_end/classes/produto.dart';
 
 class SistemaCamaraQuente extends Produto {
-  final Material? materialResistencia;
+  final MaterialEstoque? materialResistencia;
   final double? tempOperacao;
 
   SistemaCamaraQuente({
@@ -36,7 +36,7 @@ class SistemaCamaraQuente extends Produto {
       tratamentoTermico: json['tratamentoTermico'] as bool?,
       quantidade: json['quantidade'] as int?,
       materialResistencia: json['materialResistencia'] != null
-          ? Material.fromJson(json['materialResistencia'])
+          ? MaterialEstoque.fromJson(json['materialResistencia'])
           : null,
       tempOperacao: json['tempOperacao'] as double?,
     );

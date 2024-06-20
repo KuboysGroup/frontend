@@ -4,8 +4,8 @@ import 'package:front_end/classes/produto.dart';
 
 class Ferramenta extends Produto {
   final String? tipoFerramenta;
-  final Material? composicao;
-  final Material? revestimento;
+  final MaterialEstoque? composicao;
+  final MaterialEstoque? revestimento;
   final String? finalidade;
 
   Ferramenta(
@@ -42,10 +42,10 @@ class Ferramenta extends Produto {
       quantidade: json['quantidade'] as int?,
       tipoFerramenta: json['tipoFerramenta'] as String?,
       composicao: json['composicao'] != null
-          ? Material.fromJson(json['composicao'])
+          ? MaterialEstoque.fromJson(json['composicao'])
           : null,
       revestimento: json['revestimento'] != null
-          ? Material.fromJson(json['revestimento'])
+          ? MaterialEstoque.fromJson(json['revestimento'])
           : null,
       finalidade: json['finalidade'] as String?,
     );

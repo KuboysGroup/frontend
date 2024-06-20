@@ -2,7 +2,7 @@ import 'package:front_end/classes/material.dart';
 
 class Componente {
   final String? nome;
-  final List<Material>? composicao;
+  final List<MaterialEstoque>? composicao;
   final int? quantEstoque;
 
   Componente({
@@ -21,8 +21,8 @@ class Componente {
 
   factory Componente.fromJson(Map<String, dynamic> json) {
     var list = json['composicao'] as List?;
-    List<Material>? composicao =
-        list?.map((i) => Material.fromJson(i)).toList();
+    List<MaterialEstoque>? composicao =
+        list?.map((i) => MaterialEstoque.fromJson(i)).toList();
 
     return Componente(
       nome: json['nome'] as String?,

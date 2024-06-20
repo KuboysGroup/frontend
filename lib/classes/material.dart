@@ -1,8 +1,18 @@
-class Material {
+class MaterialEstoque {
   final String? nome;
   final int? quantEstoque;
 
-  Material({this.nome, this.quantEstoque});
+  MaterialEstoque({this.nome, this.quantEstoque});
+
+  MaterialEstoque copyWith({
+    String? nome,
+    int? quantEstoque,
+  }) {
+    return MaterialEstoque(
+      nome: nome ?? this.nome,
+      quantEstoque: quantEstoque ?? this.quantEstoque,
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -11,8 +21,8 @@ class Material {
     };
   }
 
-  factory Material.fromJson(Map<String, dynamic> json) {
-    return Material(
+  factory MaterialEstoque.fromJson(Map<String, dynamic> json) {
+    return MaterialEstoque(
       nome: json['nome'] as String?,
       quantEstoque: json['quantEstoque'] as int?,
     );

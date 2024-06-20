@@ -1,4 +1,4 @@
-import 'package:front_end/src/screens/cadastrar_produto/cadastrar_produto_screen.dart';
+import 'package:front_end/src/screens/materiais/materiais_screen.dart';
 import 'package:front_end/src/screens/pedidos_ferramenta/detalhes_ferramenta_screen.dart';
 import 'package:front_end/src/screens/pedidos_ferramenta/pedido_ferramenta_selecionado_screen.dart';
 import 'package:front_end/src/screens/pedidos_molde/detalhes_molde_screen.dart';
@@ -20,8 +20,8 @@ class Routes {
           builder: (context, state) => const HomeScreen(title: ''),
           routes: [
             GoRoute(
-              path: 'cadastrar_produto',
-              builder: (context, state) => const CadastrarProdutoScreen(),
+              path: 'materiais',
+              builder: (context, state) => const MateriaisScreen(),
             ),
             GoRoute(
                 path: 'pedidos_moldes',
