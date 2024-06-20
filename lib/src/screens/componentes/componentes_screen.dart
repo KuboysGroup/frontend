@@ -97,6 +97,10 @@ class ComponentesScreen extends HookConsumerWidget {
                                 'Quantidade em estoque: ${componente.quantEstoque.toString()}',
                                 style: const TextStyle(color: Colors.grey),
                               ),
+                              const Text(
+                                'Composição:',
+                                style: TextStyle(color: Colors.grey),
+                              ),
                               ...componente.composicao!.map((material) {
                                 return Text(material.nome.toString(),
                                     style: const TextStyle(color: Colors.grey));
