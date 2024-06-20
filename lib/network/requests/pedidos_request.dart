@@ -9,7 +9,7 @@ class PedidosRequest {
     List<PedidoMoldes> pedidosMoldesList = [];
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.4.14:8080/pedidos/molde'),
+        Uri.parse('http://localhost:8080/pedidos/molde'),
         headers: {
           'Accept-Charset': 'utf-8',
         },
@@ -35,7 +35,7 @@ class PedidosRequest {
     List<PedidoFerramentas> pedidosFerramentasList = [];
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.4.14:8080/pedidos/ferramenta'),
+        Uri.parse('http://localhost:8080/pedidos/ferramenta'),
         headers: {
           'Accept-Charset': 'utf-8',
         },
@@ -61,7 +61,7 @@ class PedidosRequest {
     List<PedidoSistemaCaramaQuente> pedidosSistemasList = [];
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.4.14:8080/pedidos/sistema'),
+        Uri.parse('http://localhost:8080/pedidos/sistema'),
         headers: {
           'Accept-Charset': 'utf-8',
         },

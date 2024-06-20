@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:front_end/classes/componente.dart';
 import 'package:front_end/network/requests/componentes_request.dart';
 import 'package:front_end/src/helpers/modals.dart';
-import 'package:front_end/src/screens/materiais/criar_material.dart';
+import 'package:front_end/src/screens/componentes/criar_componente.dart';
 import 'package:front_end/state/componentes_states/componentes_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -97,9 +97,10 @@ class ComponentesScreen extends HookConsumerWidget {
                                 'Quantidade em estoque: ${componente.quantEstoque.toString()}',
                                 style: const TextStyle(color: Colors.grey),
                               ),
-                              Text(
-                                  'Composição: ${componente.composicao!.first.nome}',
-                                  style: const TextStyle(color: Colors.grey))
+                              ...componente.composicao!.map((material) {
+                                return Text(material.nome.toString(),
+                                    style: const TextStyle(color: Colors.grey));
+                              })
                             ],
                           ),
                           children: [
@@ -144,7 +145,7 @@ class ComponentesScreen extends HookConsumerWidget {
         shape: const CircleBorder(),
         child: const Icon(FluentIcons.add_12_regular),
         onPressed: () {
-          KModal.show(body: const CriarMaterialScreen(), context: context);
+          KModal.show(body: const CriarComponenteScreen(), context: context);
         },
       ),
     );

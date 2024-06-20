@@ -7,7 +7,7 @@ class ComponentesRequest {
     List<Componente> componentesList = [];
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.4.14:8080/componentes'),
+        Uri.parse('http://localhost:8080/componentes'),
         headers: {
           'Accept-Charset': 'utf-8',
         },
@@ -32,7 +32,7 @@ class ComponentesRequest {
   static Future<void> createComponente(Componente componente) async {
     try {
       final response =
-          await http.post(Uri.parse('http://192.168.4.14:8080/componentes'),
+          await http.post(Uri.parse('http://localhost:8080/componentes'),
               headers: {
                 'Content-Type': 'application/json',
               },
@@ -52,7 +52,7 @@ class ComponentesRequest {
   static Future<void> updateComponente(List<Componente> lista) async {
     try {
       final response =
-          await http.put(Uri.parse('http://192.168.4.14:8080/componentes'),
+          await http.put(Uri.parse('http://localhost:8080/componentes'),
               headers: {
                 'Content-Type': 'application/json',
               },

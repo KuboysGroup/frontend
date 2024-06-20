@@ -9,7 +9,7 @@ class AtualizarStatusPedidoRequest {
       int? id, PedidoMoldes pedido) async {
     try {
       final response = await http.put(
-        Uri.parse('http://192.168.4.14:8080/pedidos/molde/$id'),
+        Uri.parse('http://localhost:8080/pedidos/molde/$id'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -31,7 +31,7 @@ class AtualizarStatusPedidoRequest {
       int? id, PedidoFerramentas pedido) async {
     try {
       final response = await http.put(
-        Uri.parse('http://192.168.4.14:8080/pedidos/ferramenta/$id'),
+        Uri.parse('http://localhost:8080/pedidos/ferramenta/$id'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -53,7 +53,7 @@ class AtualizarStatusPedidoRequest {
       int? id, PedidoSistemaCaramaQuente pedido) async {
     try {
       final response = await http.put(
-        Uri.parse('http://192.168.4.14:8080/pedidos/sistema/$id'),
+        Uri.parse('http://localhost:8080/pedidos/sistema/$id'),
         headers: {
           'Content-Type': 'application/json',
         },

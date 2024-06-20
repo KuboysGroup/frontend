@@ -15,7 +15,7 @@
 //     List<Pedido> pedidosList = [];
 //     try {
 //       final response =
-//           await http.get(Uri.parse('http://192.168.4.14:8080/api/pedidos'));
+//           await http.get(Uri.parse('http://localhost:8080/api/pedidos'));
 //       print('Status Code: ${response.statusCode}');
 //       if (response.statusCode == 200) {
 //         print('Response Body: ${response.body}');

@@ -7,7 +7,7 @@ class MateriaisRequest {
     List<MaterialEstoque> materiaisList = [];
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.4.14:8080/materiais'),
+        Uri.parse('http://localhost:8080/materiais'),
         headers: {
           'Accept-Charset': 'utf-8',
         },
@@ -32,7 +32,7 @@ class MateriaisRequest {
   static Future<void> createMaterial(MaterialEstoque materialEstoque) async {
     try {
       final response =
-          await http.post(Uri.parse('http://192.168.4.14:8080/materiais'),
+          await http.post(Uri.parse('http://localhost:8080/materiais'),
               headers: {
                 'Content-Type': 'application/json',
               },
@@ -52,7 +52,7 @@ class MateriaisRequest {
   static Future<void> updateMaterial(List<MaterialEstoque> lista) async {
     try {
       final response =
-          await http.put(Uri.parse('http://192.168.4.14:8080/materiais'),
+          await http.put(Uri.parse('http://localhost:8080/materiais'),
               headers: {
                 'Content-Type': 'application/json',
               },
