@@ -1,3 +1,4 @@
+import 'package:front_end/src/screens/componentes/componentes_screen.dart';
 import 'package:front_end/src/screens/materiais/materiais_screen.dart';
 import 'package:front_end/src/screens/pedidos_ferramenta/detalhes_ferramenta_screen.dart';
 import 'package:front_end/src/screens/pedidos_ferramenta/pedido_ferramenta_selecionado_screen.dart';
@@ -22,6 +23,10 @@ class Routes {
             GoRoute(
               path: 'materiais',
               builder: (context, state) => const MateriaisScreen(),
+            ),
+            GoRoute(
+              path: 'componentes',
+              builder: (context, state) => const ComponentesScreen(),
             ),
             GoRoute(
                 path: 'pedidos_moldes',

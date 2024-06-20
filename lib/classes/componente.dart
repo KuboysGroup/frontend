@@ -11,6 +11,18 @@ class Componente {
     this.quantEstoque,
   });
 
+  Componente copyWith({
+    String? nome,
+    List<MaterialEstoque>? composicao,
+    int? quantEstoque,
+  }) {
+    return Componente(
+      nome: nome ?? this.nome,
+      composicao: composicao ?? List.from(this.composicao!),
+      quantEstoque: quantEstoque ?? this.quantEstoque,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'nome': nome,

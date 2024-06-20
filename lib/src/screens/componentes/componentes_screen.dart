@@ -1,27 +1,29 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:front_end/classes/material.dart';
-import 'package:front_end/network/requests/materiais_request.dart';
+import 'package:front_end/classes/componente.dart';
+import 'package:front_end/network/requests/componentes_request.dart';
 import 'package:front_end/src/helpers/modals.dart';
 import 'package:front_end/src/screens/materiais/criar_material.dart';
-import 'package:front_end/state/materiais_states/materiais_state.dart';
+import 'package:front_end/state/componentes_states/componentes_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../helpers/form_fields.dart';
 
-class MateriaisScreen extends HookConsumerWidget {
-  const MateriaisScreen({super.key});
+class ComponentesScreen extends HookConsumerWidget {
+  const ComponentesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final materiais = ref.watch(materiaisStateProvider);
+    final componentes = ref.watch(componentesStateProvider);
     final quantidadeController = useTextEditingController();
 
-    void atualizarQuantidade(MaterialEstoque item) async {
-      final itemAtualizado = MaterialEstoque(
-          nome: item.nome, quantEstoque: int.parse(quantidadeController.text));
-      List<MaterialEstoque> listaAtualizda = materiais.value!.map((e) {
+    void atualizarQuantidade(Componente item) async {
+      final itemAtualizado = Componente(
+          nome: item.nome,
+          composicao: item.composicao,
+          quantEstoque: int.parse(quantidadeController.text));
+      List<Componente> listaAtualizda = componentes.value!.map((e) {
         if (e.nome == item.nome) {
           return e.copyWith(quantEstoque: int.parse(quantidadeController.text));
         } else {
@@ -29,10 +31,10 @@ class MateriaisScreen extends HookConsumerWidget {
         }
       }).toList();
       try {
-        await MateriaisRequest.updateMaterial(listaAtualizda);
+        await ComponentesRequest.updateComponente(listaAtualizda);
         ref
-            .read(materiaisStateProvider.notifier)
-            .atualizarMateriais(itemAtualizado);
+            .read(componentesStateProvider.notifier)
+            .atualizarComponentes(itemAtualizado);
         quantidadeController.clear();
       } catch (err) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -58,7 +60,7 @@ class MateriaisScreen extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Materiais',
+                    'Componentes',
                     style: TextStyle(fontSize: 25),
                   ),
                   Text(
@@ -68,11 +70,11 @@ class MateriaisScreen extends HookConsumerWidget {
                 ],
               ),
             ),
-            materiais.map(
+            componentes.map(
               data: (data) {
                 return Column(
                   children: [
-                    ...data.value.map((material) {
+                    ...data.value.map((componente) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 4.0),
@@ -84,12 +86,22 @@ class MateriaisScreen extends HookConsumerWidget {
                               color: Colors.grey.withOpacity(0.25),
                               borderRadius: BorderRadius.circular(50.0),
                             ),
-                            child: const Icon(FluentIcons.pipeline_20_regular),
+                            child:
+                                const Icon(FluentIcons.puzzle_piece_20_regular),
                           ),
-                          title: Text(material.nome.toString()),
-                          subtitle: Text(
-                              'Quantidade em estoque: ${material.quantEstoque.toString()}',
-                              style: const TextStyle(color: Colors.grey)),
+                          title: Text(componente.nome.toString()),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Quantidade em estoque: ${componente.quantEstoque.toString()}',
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                              Text(
+                                  'Composição: ${componente.composicao!.first.nome}',
+                                  style: const TextStyle(color: Colors.grey))
+                            ],
+                          ),
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(
@@ -108,7 +120,7 @@ class MateriaisScreen extends HookConsumerWidget {
                                 alignment: Alignment.centerRight,
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      atualizarQuantidade(material);
+                                      atualizarQuantidade(componente);
                                     },
                                     child: const Text('Confirmar')),
                               ),

@@ -32,14 +32,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(fontSize: 25),
                     ),
                     Text(
-                      'Controle com eficácia sua produção',
+                      'Gestão Estratégica de Sistemas Típicamente Operacionais',
                       style: TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 8.0,
+              const SizedBox(
+                height: 20.0,
               ),
               Padding(
                 padding:
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.grey.withOpacity(0.25),
                       borderRadius: BorderRadius.circular(50.0),
                     ),
-                    child: const Icon(FluentIcons.toolbox_12_regular),
+                    child: const Icon(FluentIcons.toolbox_20_regular),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios_rounded),
                   title: const Text('Pedidos de Ferramentas'),
@@ -115,13 +115,34 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.grey.withOpacity(0.25),
                       borderRadius: BorderRadius.circular(50.0),
                     ),
-                    child: const Icon(FluentIcons.feed_16_regular),
+                    child: const Icon(FluentIcons.feed_20_regular),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios_rounded),
                   title: const Text('Materiais'),
                   subtitle: const Text('Consulte e atualize os materiais'),
                   onTap: () {
                     context.go('/materiais');
+                  },
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                child: ListTile(
+                  leading: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.25),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    child: const Icon(FluentIcons.puzzle_cube_20_regular),
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                  title: const Text('Componentes'),
+                  subtitle: const Text('Consulte e atualize os materiais'),
+                  onTap: () {
+                    context.go('/componentes');
                   },
                 ),
               ),
