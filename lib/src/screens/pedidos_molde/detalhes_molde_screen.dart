@@ -43,11 +43,11 @@ class DetalhesMoldeScreen extends HookConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Detalhes do produto',
                       style: TextStyle(fontSize: 25),
                     ),
-                    Text(
+                    const Text(
                       '',
                       style: TextStyle(color: Colors.grey),
                     ),
@@ -58,10 +58,34 @@ class DetalhesMoldeScreen extends HookConsumerWidget {
                         produtoSelecionado.dimensoes!.largura.toString()),
                     buildRow("Profundidade",
                         produtoSelecionado.dimensoes!.profundidade.toString()),
+                    buildRow(
+                        "Nec. Tratamento térmico",
+                        produtoSelecionado.tratamentoTermico == true
+                            ? "Sim"
+                            : "Não"),
+                    buildRow("Tipo de injeção",
+                        produtoSelecionado.tipoInjecao.toString()),
+                    buildRow("Ramo", produtoSelecionado.ramoMolde.toString()),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child: Divider(),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child:
+                          Text("Componentes:", style: TextStyle(fontSize: 16)),
+                    ),
+                    ...produtoSelecionado.componentes!.map((e) => Column(
+                          children: [
+                            buildRow("Nome",
+                                "${e.nome} de ${e.composicao!.first.nome}"),
+                            buildRow(
+                                "Quant. estoque", e.quantEstoque.toString())
+                          ],
+                        ))
                   ],
                 ),
               ),
-              Text(produtoSelecionado!.toJson().toString())
             ],
           ),
         ],
