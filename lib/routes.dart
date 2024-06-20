@@ -1,4 +1,6 @@
 import 'package:front_end/src/screens/cadastrar_produto/cadastrar_produto_screen.dart';
+import 'package:front_end/src/screens/pedidos_ferramenta/detalhes_ferramenta_screen.dart';
+import 'package:front_end/src/screens/pedidos_ferramenta/pedido_ferramenta_selecionado_screen.dart';
 import 'package:front_end/src/screens/pedidos_molde/detalhes_molde_screen.dart';
 import 'package:front_end/src/screens/home_screen.dart';
 import 'package:front_end/src/screens/pedidos_molde/pedido_molde_selecionado_screen.dart';
@@ -35,22 +37,21 @@ class Routes {
                       ])
                 ]),
             GoRoute(
-              path: 'pedidos_ferramentas',
-              builder: (context, state) => const PedidosFerramentasScreen(),
-              // routes: [
-              //   GoRoute(
-              //       path: 'pedido_molde_selecionado',
-              //       builder: (context, state) =>
-              //           const PedidoMoldeSelecionadoScreen(),
-              //       routes: [
-              //         GoRoute(
-              //           path: 'detalhes_molde',
-              //           builder: (context, state) =>
-              //               const DetalhesMoldeScreen(),
-              //         )
-              //       ])
-              // ]
-            ),
+                path: 'pedidos_ferramentas',
+                builder: (context, state) => const PedidosFerramentasScreen(),
+                routes: [
+                  GoRoute(
+                      path: 'pedido_ferramenta_selecionado',
+                      builder: (context, state) =>
+                          const PedidoFerramentaSelecionadoScreen(),
+                      routes: [
+                        GoRoute(
+                          path: 'detalhes_ferramenta',
+                          builder: (context, state) =>
+                              const DetalhesFerramentaScreen(),
+                        )
+                      ])
+                ]),
           ],
         ),
       ],

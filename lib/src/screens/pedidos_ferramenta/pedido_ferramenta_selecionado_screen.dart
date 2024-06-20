@@ -1,22 +1,22 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:front_end/classes/pedido_moldes.dart';
+import 'package:front_end/classes/pedido_ferramentas.dart';
 import 'package:front_end/network/requests/alterar_status_request.dart';
 import 'package:front_end/src/helpers/status_manager.dart';
-import 'package:front_end/state/pedidos_molde_states/molde_selecionado_state.dart';
-import 'package:front_end/state/pedidos_molde_states/pedido_molde_selecionado_state.dart';
-import 'package:front_end/state/pedidos_molde_states/pedidos_moldes_state.dart';
+import 'package:front_end/state/pedidos_ferramenta_states/ferramenta_selecionada_state.dart';
+import 'package:front_end/state/pedidos_ferramenta_states/pedido_ferramenta_selecionado_state.dart';
+import 'package:front_end/state/pedidos_ferramenta_states/pedidos_ferramentas_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class PedidoMoldeSelecionadoScreen extends HookConsumerWidget {
-  const PedidoMoldeSelecionadoScreen({super.key});
+class PedidoFerramentaSelecionadoScreen extends HookConsumerWidget {
+  const PedidoFerramentaSelecionadoScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pedido = ref.watch(pedidoMoldeSelecionadoStateProvider);
-    ref.watch(pedidosMoldesStateProvider);
+    final pedido = ref.watch(pedidoFerramentaSelecionadoStateProvider);
+    ref.watch(pedidosFerramentasStateProvider);
     const List<String> list = <String>[
       'EM_ABERTO',
       'EM_PRODUCAO',
@@ -26,7 +26,7 @@ class PedidoMoldeSelecionadoScreen extends HookConsumerWidget {
 
     final dropdownValue = ref.watch(dropdownProvider);
     final dropdownNotifier = ref.read(dropdownProvider.notifier);
-    ref.watch(moldeSelecionadoStateProvider);
+    ref.watch(ferramentaSelecionadaStateProvider);
 
     Widget buildRow(String title, String value) {
       return Padding(
@@ -45,21 +45,21 @@ class PedidoMoldeSelecionadoScreen extends HookConsumerWidget {
       );
     }
 
-    void atualizarState(PedidoMoldes pedido) async {
-      final updatedPedido = PedidoMoldes(
+    void atualizarState(PedidoFerramentas pedido) async {
+      final updatedPedido = PedidoFerramentas(
           id: pedido.id,
           dataEntrega: pedido.dataEntrega,
           dataPedido: pedido.dataPedido,
           status: dropdownValue,
           produtos: pedido.produtos);
       ref
-          .read(pedidoMoldeSelecionadoStateProvider.notifier)
+          .read(pedidoFerramentaSelecionadoStateProvider.notifier)
           .atualizarStatusPedido(dropdownValue);
       ref
-          .read(pedidosMoldesStateProvider.notifier)
+          .read(pedidosFerramentasStateProvider.notifier)
           .atualizarPedidos(updatedPedido);
       print(updatedPedido.produtos?.first.toJson());
-      await AtualizarStatusPedidoRequest.atualizarStatusPedidoMolde(
+      await AtualizarStatusPedidoRequest.atualizarStatusPedidoFerramentas(
           updatedPedido.id, updatedPedido);
     }
 
@@ -108,10 +108,10 @@ class PedidoMoldeSelecionadoScreen extends HookConsumerWidget {
                             'Quantidade: ${produtoPedido.quantidade.toString()}'),
                         onTap: () {
                           ref
-                              .read(moldeSelecionadoStateProvider.notifier)
+                              .read(ferramentaSelecionadaStateProvider.notifier)
                               .selecionarProduto(produtoPedido);
                           context.go(
-                              '/pedidos_moldes/pedido_molde_selecionado/detalhes_molde');
+                              '/pedidos_ferramentas/pedido_ferramenta_selecionado/detalhes_ferramenta');
                         },
                       )),
                   const Padding(

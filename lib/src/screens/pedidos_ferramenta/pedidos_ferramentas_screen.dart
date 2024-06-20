@@ -113,8 +113,8 @@ class PedidosFerramentasScreen extends HookConsumerWidget {
                                           pedidoFerramentaSelecionadoStateProvider
                                               .notifier)
                                       .selecionarPedido(e);
-                                  context
-                                      .go('/pedidos_moldes/pedido_selecionado');
+                                  context.go(
+                                      '/pedidos_ferramentas/pedido_ferramenta_selecionado');
                                 },
                                 title: Text('ID Pedido: ${e.id}'),
                                 subtitle: buildSubtitle(
