@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:front_end/classes/pedido_ferramentas.dart';
 import 'package:front_end/classes/pedido_moldes.dart';
+import 'package:front_end/classes/pedido_sistema_camara_quente.dart';
 import 'package:http/http.dart' as http;
 
 class PedidosRequest {
@@ -54,5 +55,32 @@ class PedidosRequest {
       print('Erro ao carregar pedidos: $err');
     }
     return pedidosFerramentasList;
+  }
+
+  static Future<List<PedidoSistemaCaramaQuente>> getPedidosSistemas() async {
+    List<PedidoSistemaCaramaQuente> pedidosSistemasList = [];
+    try {
+      final response = await http.get(
+        Uri.parse('http://192.168.4.14:8080/pedidos/sistema'),
+        headers: {
+          'Accept-Charset': 'utf-8',
+        },
+      );
+      print('Status Code: ${response.statusCode}');
+      if (response.statusCode == 200) {
+        final responseBody = utf8.decode(response.bodyBytes);
+        print('Response Body: $responseBody');
+        final List<dynamic> jsonList = jsonDecode(responseBody);
+        pedidosSistemasList = jsonList
+            .map((json) => PedidoSistemaCaramaQuente.fromJson(json))
+            .toList();
+      } else {
+        throw Exception(
+            'Falha ao carregar pedidos. Status Code: ${response.statusCode}');
+      }
+    } catch (err) {
+      print('Erro ao carregar pedidos: $err');
+    }
+    return pedidosSistemasList;
   }
 }

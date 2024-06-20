@@ -35,7 +35,9 @@ class SistemaCamaraQuente extends Produto {
           : null,
       tratamentoTermico: json['tratamentoTermico'] as bool?,
       quantidade: json['quantidade'] as int?,
-      materialResistencia: json['materialResistencia'] as Material?,
+      materialResistencia: json['materialResistencia'] != null
+          ? Material.fromJson(json['materialResistencia'])
+          : null,
       tempOperacao: json['tempOperacao'] as double?,
     );
   }

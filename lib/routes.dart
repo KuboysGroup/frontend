@@ -6,6 +6,9 @@ import 'package:front_end/src/screens/home_screen.dart';
 import 'package:front_end/src/screens/pedidos_molde/pedido_molde_selecionado_screen.dart';
 import 'package:front_end/src/screens/pedidos_ferramenta/pedidos_ferramentas_screen.dart';
 import 'package:front_end/src/screens/pedidos_molde/pedidos_moldes_screen.dart';
+import 'package:front_end/src/screens/pedidos_sistema/detalhes_sistema_screen.dart';
+import 'package:front_end/src/screens/pedidos_sistema/pedido_sistema_selecionado_screen.dart';
+import 'package:front_end/src/screens/pedidos_sistema/pedidos_sistemas_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -49,6 +52,22 @@ class Routes {
                           path: 'detalhes_ferramenta',
                           builder: (context, state) =>
                               const DetalhesFerramentaScreen(),
+                        )
+                      ])
+                ]),
+            GoRoute(
+                path: 'pedidos_sistemas',
+                builder: (context, state) => const PedidosSistemasScreen(),
+                routes: [
+                  GoRoute(
+                      path: 'pedido_sistema_selecionado',
+                      builder: (context, state) =>
+                          const PedidoSistemaSelecionadoScreen(),
+                      routes: [
+                        GoRoute(
+                          path: 'detalhes_sistema',
+                          builder: (context, state) =>
+                              const DetalhesSistemaScreen(),
                         )
                       ])
                 ]),
