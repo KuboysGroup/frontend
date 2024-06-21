@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:front_end/classes/componente.dart';
 import 'package:front_end/classes/material.dart';
 import 'package:front_end/network/requests/componentes_request.dart';
+import 'package:front_end/src/helpers/snackbar.dart';
 import 'package:front_end/state/componentes_states/componentes_state.dart';
 import 'package:front_end/state/materiais_states/materiais_state.dart';
 import 'package:go_router/go_router.dart';
@@ -25,12 +26,7 @@ class CriarComponenteScreen extends HookConsumerWidget {
       if (nomeController.text.isEmpty ||
           quantController.text.isEmpty ||
           selectedMaterials.value.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Preencha todos os campos!'),
-            duration: Duration(seconds: 2),
-          ),
-        );
+        KSnackBar.showCustomSnackbar(context, "Preencha todos os campos");
         return;
       }
 
@@ -39,12 +35,7 @@ class CriarComponenteScreen extends HookConsumerWidget {
 
       hasComponente.whenData((value) async {
         if (value) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Componente já cadastrado!'),
-              duration: Duration(seconds: 2),
-            ),
-          );
+          KSnackBar.showCustomSnackbar(context, "Componente já cadastrado");
           return;
         }
         final item = Componente(
@@ -64,12 +55,7 @@ class CriarComponenteScreen extends HookConsumerWidget {
           );
           context.pop();
         } catch (err) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Erro ao adicionar componente!'),
-              duration: Duration(seconds: 2),
-            ),
-          );
+          KSnackBar.showCustomSnackbar(context, "Erro ao cadastrar componente");
         }
       });
     }

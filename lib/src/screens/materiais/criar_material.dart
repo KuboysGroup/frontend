@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:front_end/classes/material.dart';
 import 'package:front_end/network/requests/materiais_request.dart';
+import 'package:front_end/src/helpers/snackbar.dart';
 import 'package:front_end/state/materiais_states/materiais_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,12 +21,7 @@ class CriarMaterialScreen extends HookConsumerWidget {
 
     Future<void> criarMaterial() async {
       if (nomeController.text.isEmpty || quantController.text.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Preencha todos os campos!'),
-            duration: Duration(seconds: 2),
-          ),
-        );
+        KSnackBar.showCustomSnackbar(context, "Preencha todos os campos");
         return;
       }
 
@@ -34,12 +30,7 @@ class CriarMaterialScreen extends HookConsumerWidget {
 
       temMaterial.whenData((value) async {
         if (value) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Material já cadastrado!'),
-              duration: Duration(seconds: 2),
-            ),
-          );
+          KSnackBar.showCustomSnackbar(context, "Material já cadastrado");
           return;
         }
         final item = MaterialEstoque(
@@ -56,12 +47,7 @@ class CriarMaterialScreen extends HookConsumerWidget {
           );
           context.pop();
         } catch (err) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Erro ao adicionar material!'),
-              duration: Duration(seconds: 2),
-            ),
-          );
+          KSnackBar.showCustomSnackbar(context, "Erro ao cadastrar material");
         }
       });
     }

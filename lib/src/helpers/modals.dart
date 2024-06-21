@@ -129,9 +129,10 @@ class KModal {
 
   static double _getWidth(ModalDirection direction, BuildContext context,
       double? width, double? height) {
-    // if (direction == ModalDirection.left || direction == ModalDirection.right) {
-    //   return width ?? MediaQuery.of(context).size.width * 0.3;
-    // }
+    final isCelular = MediaQuery.of(context).size.width < 640;
+    if (!isCelular) {
+      return width ?? MediaQuery.of(context).size.width * 0.3;
+    }
     return double.infinity;
   }
 
